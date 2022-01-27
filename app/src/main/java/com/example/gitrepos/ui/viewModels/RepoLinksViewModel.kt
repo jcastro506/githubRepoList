@@ -28,7 +28,7 @@ class RepoLinksViewModel @Inject constructor(
 
 
     fun getRepoList(orgName : String?) = viewModelScope.launch {
-        val response = repository.getOrgRepos(orgName).subList(0,2).sortedByDescending { it.stargazersCount }
+        val response = repository.getOrgRepos(orgName).sortedByDescending { it.stargazersCount }.slice(0..2)
         repoList.value = response
     }
 

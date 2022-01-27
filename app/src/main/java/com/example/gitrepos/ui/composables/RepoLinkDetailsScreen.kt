@@ -1,6 +1,8 @@
 package com.example.gitrepos.ui.composables
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -13,11 +15,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.gitrepos.ui.viewModels.RepoLinksViewModel
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.AndroidUriHandler
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.rememberImagePainter
@@ -48,13 +54,13 @@ fun RepoCard(
     repoName: String, repoImage: String,
     repoUrl: String, navController: NavController, onClickAction: () -> Unit
 ) {
-
+    val context = LocalContext.current
+    val intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(repoUrl)) }
     Card(modifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .padding(8.dp)
-        .clickable { navController.navigate("webViewScreen/${repoUrl}") }
-        ,
+        .clickable { context.startActivity(intent) },
         elevation = 8.dp,
         border = BorderStroke(2.dp, Color.Black)
     ) {
