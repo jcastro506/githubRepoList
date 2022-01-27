@@ -27,6 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.example.gitrepos.models.Organization
 import com.example.gitrepos.models.Repository
 import com.example.gitrepos.ui.viewModels.RepoLinksViewModel
 import com.example.gitrepos.ui.viewModels.RepoListViewModel
@@ -48,7 +49,7 @@ fun RepoListScreen(
             }
             LazyColumn(){
                 items(allOrgs) { org ->
-                    RepoCard(orgName = org.login, orgImage = org.avatarUrl, navController)
+                    RepoCard(orgName = org.login, orgImage = org.avatarUrl, navController, viewModel = viewModel)
                 }
             }
         }
@@ -57,12 +58,13 @@ fun RepoListScreen(
 
 
 @Composable
-fun RepoCard(orgName : String, orgImage : String, navController: NavController) {
+fun RepoCard(orgName : String, orgImage : String, navController: NavController, viewModel: RepoListViewModel) {
     Card(modifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .padding(8.dp)
-        .clickable { navController.navigate("repoDetailsScreen/${orgName}") },
+        .clickable { navController.navigate("repoDetailsScreen/${orgName}")
+                 viewModel.resetOrgList()  } ,
         elevation = 8.dp,
         border = BorderStroke(2.dp, Color.Black)
     ) {

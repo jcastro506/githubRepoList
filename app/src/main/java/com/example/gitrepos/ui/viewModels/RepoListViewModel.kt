@@ -60,6 +60,9 @@ class RepoListViewModel @Inject constructor(
         }
     }
 
+    fun resetOrgList() = viewModelScope.launch {
+        allOrgs.value = getAllOrgs()
+    }
 
     private suspend fun getAllOrgs() : OrganizationsResponse {
         return repository.getAllOrgs()

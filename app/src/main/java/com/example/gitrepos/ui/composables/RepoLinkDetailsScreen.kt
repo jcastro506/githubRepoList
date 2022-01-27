@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AndroidUriHandler
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.rememberImagePainter
@@ -37,15 +38,20 @@ fun RepoLinkDetailsScreen(
 ) {
     viewModel.getRepoList(orgName)
     var repos = viewModel.repoList.value
-    LazyColumn() {
-      items(repos) { repo ->
-          RepoCard(
-              repoName = repo.name, repoImage = repo.owner.avatarUrl,
-              repoUrl = repo.htmlUrl, navController = navController){
+        Box(modifier = Modifier.padding(8.dp), contentAlignment = Alignment.TopCenter) {
+            Text("Top 3 Repos", modifier = Modifier
+                .size(16.dp)
+                .padding(16.dp), textAlign = TextAlign.Center)
+            LazyColumn() {
+                items(repos) { repo ->
+                    RepoCard(
+                        repoName = repo.name, repoImage = repo.owner.avatarUrl,
+                        repoUrl = repo.htmlUrl, navController = navController){
 
-          }
-      }
-    }
+                    }
+                }
+            }
+        }
 }
 
 
