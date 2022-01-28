@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import com.example.gitrepos.models.OrganizationsResponse
 import com.example.gitrepos.models.RepositoriesResponse
 import com.example.gitrepos.models.Repository
+import com.example.gitrepos.util.Resource
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

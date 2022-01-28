@@ -38,7 +38,6 @@ class RepoLinksViewModel @Inject constructor(
 
     fun getReposBySearch(loginName : String?) = viewModelScope.launch {
         val response = repository.getReposBySearch(loginName = loginName)
-            .sortedByDescending{ it.stargazersCount }.slice(0..2)
 
         repoList.value = response
     }
