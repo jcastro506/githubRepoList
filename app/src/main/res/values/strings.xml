@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GitRepos</string>
+    <string name="REPO_LIST_CARD">All List Cards</string>
 </resources>

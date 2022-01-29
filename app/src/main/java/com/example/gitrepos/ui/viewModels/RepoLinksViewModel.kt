@@ -27,16 +27,16 @@ class RepoLinksViewModel @Inject constructor(
     var orgName : MutableState<String> = mutableStateOf("")
 
 
-    fun getRepoList(orgName : String?) = viewModelScope.launch {
+    fun getRepoList(orgName : String) = viewModelScope.launch {
         var response = emptyList<Repository>()
-        if(repository.getOrgRepos(orgName).size < 3) { response = repository.getOrgRepos(orgName) }
+        if(repository.getOrgsRepos(orgName).size < 3) { response = repository.getOrgsRepos(orgName) }
         else {
-            response = repository.getOrgRepos(orgName).sortedByDescending { it.stargazersCount }.slice(0..2)
+            response = repository.getOrgsRepos(orgName).sortedByDescending { it.stargazersCount }.slice(0..2)
         }
         repoList.value = response
     }
 
-    fun getReposBySearch(loginName : String?) = viewModelScope.launch {
+    fun getReposBySearch(loginName : String) = viewModelScope.launch {
         val response = repository.getReposBySearch(loginName = loginName)
 
         repoList.value = response

@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AndroidUriHandler
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -36,13 +38,15 @@ fun RepoLinkDetailsScreen(
     viewModel: RepoLinksViewModel
 
 ) {
-    viewModel.getRepoList(orgName)
+    if (orgName != null) {
+        viewModel.getRepoList(orgName)
+    }
     var repos = viewModel.repoList.value
         Box(modifier = Modifier.padding(8.dp), contentAlignment = Alignment.TopCenter) {
             Text("Top 3 Repos", modifier = Modifier
                 .size(16.dp)
                 .padding(16.dp), textAlign = TextAlign.Center)
-            LazyColumn() {
+            LazyColumn(modifier = Modifier.semantics { contentDescription = "Details Card" }) {
                 items(repos) { repo ->
                     RepoCard(
                         repoName = repo.name, repoImage = repo.owner.avatarUrl,
@@ -66,7 +70,8 @@ fun RepoCard(
         .fillMaxWidth()
         .wrapContentHeight()
         .padding(8.dp)
-        .clickable { context.startActivity(intent) },
+        .clickable { context.startActivity(intent) }
+        .semantics { contentDescription = "Single Details Card" },
         elevation = 8.dp,
         border = BorderStroke(2.dp, Color.Black)
     ) {

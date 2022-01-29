@@ -23,10 +23,16 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierInfo
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.example.gitrepos.R
 import com.example.gitrepos.models.Organization
 import com.example.gitrepos.models.Repository
 import com.example.gitrepos.ui.viewModels.RepoLinksViewModel
@@ -47,7 +53,7 @@ fun RepoListScreen(
                 .padding(16.dp)) {
                 viewModel.searchOrgList(it)
             }
-            LazyColumn(){
+            LazyColumn(modifier = Modifier.testTag("Search Tag")){
                 items(allOrgs) { org ->
                     RepoCard(orgName = org.login, orgImage = org.avatarUrl, navController, viewModel = viewModel)
                 }
@@ -63,8 +69,11 @@ fun RepoCard(orgName : String, orgImage : String, navController: NavController, 
         .fillMaxWidth()
         .wrapContentHeight()
         .padding(8.dp)
-        .clickable { navController.navigate("repoDetailsScreen/${orgName}")
-                 viewModel.resetOrgList()  } ,
+        .semantics { contentDescription = "All List Cards" }
+        .clickable {
+            navController.navigate("repoDetailsScreen/${orgName}")
+            viewModel.resetOrgList()
+        } ,
         elevation = 8.dp,
         border = BorderStroke(2.dp, Color.Black)
     ) {

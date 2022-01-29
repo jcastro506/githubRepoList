@@ -1,16 +1,15 @@
 package com.example.gitrepos.ui.viewModels
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gitrepos.models.Organization
 import com.example.gitrepos.models.OrganizationsResponse
-import com.example.gitrepos.models.RepositoriesResponse
 import com.example.gitrepos.models.Repository
+import com.example.gitrepos.repository.OrgRepoInterface
 import com.example.gitrepos.repository.OrganizationRepository
+import com.example.gitrepos.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,10 +18,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepoListViewModel @Inject constructor(
-   var repository: OrganizationRepository
+   var repository: OrgRepoInterface
 ) : ViewModel(){
 
-    val allOrgs : MutableState<List<Organization>> = mutableStateOf<List<Organization>>(emptyList<Organization>())
+    //val allOrgs : MutableState<Resource<OrganizationsResponse>> = mutableStateOf()
+    val allOrgs : MutableState<List<Organization>> = mutableStateOf(emptyList())
+
     val searchedRepos : MutableState<List<Repository>> = mutableStateOf(emptyList())
     private var cachedList = emptyList<Organization>()
     private var isSearchStarting = true
@@ -64,7 +65,7 @@ class RepoListViewModel @Inject constructor(
         allOrgs.value = getAllOrgs()
     }
 
-    private suspend fun getAllOrgs() : OrganizationsResponse {
+    private suspend fun getAllOrgs() : List<Organization> {
         return repository.getAllOrgs()
     }
 
