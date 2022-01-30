@@ -20,12 +20,20 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.gitrepos.ui.viewModels.RepoLinksViewModel
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AndroidUriHandler
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.rememberImagePainter
 
@@ -38,10 +46,16 @@ fun RepoLinkDetailsScreen(
 ) {
     viewModel.getRepoList(orgName)
     var repos = viewModel.repoList.value
-        Box(modifier = Modifier.padding(8.dp), contentAlignment = Alignment.TopCenter) {
-            Text("Top 3 Repos", modifier = Modifier
-                .size(16.dp)
-                .padding(16.dp), textAlign = TextAlign.Center)
+        Column(modifier = Modifier.padding(8.dp)) {
+            Text(
+                text = "Top Three Repos",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp)
+            )
             LazyColumn() {
                 items(repos) { repo ->
                     RepoCard(
