@@ -1,6 +1,7 @@
 package com.example.gitrepos.di
 
 import com.example.gitrepos.remote.RepoApi
+import com.example.gitrepos.repository.OrgRepositoryInterface
 import com.example.gitrepos.repository.OrganizationRepository
 import com.example.gitrepos.util.Constants
 import dagger.Module
@@ -21,7 +22,7 @@ object AppModule {
     @Provides
     fun provideOrgRepository(
         api : RepoApi
-    ) = OrganizationRepository(api)
+    ) = OrganizationRepository(api) as OrgRepositoryInterface
 
 
     @Singleton

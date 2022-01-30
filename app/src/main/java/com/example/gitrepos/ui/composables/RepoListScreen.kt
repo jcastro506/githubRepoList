@@ -23,6 +23,8 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierInfo
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -36,7 +38,8 @@ import com.example.gitrepos.ui.viewModels.RepoListViewModel
 @Composable
 fun RepoListScreen(
     navController: NavController,
-    viewModel: RepoListViewModel
+    viewModel: RepoListViewModel,
+    modifier: Modifier
 ) {
     val allOrgs by remember { viewModel.allOrgs }
     val isSearching by remember { viewModel.isSearching }
@@ -47,7 +50,7 @@ fun RepoListScreen(
                 .padding(16.dp)) {
                 viewModel.searchOrgList(it)
             }
-            LazyColumn(){
+            LazyColumn(modifier = Modifier.semantics { contentDescription = "List Screen Card" }){
                 items(allOrgs) { org ->
                     RepoCard(orgName = org.login, orgImage = org.avatarUrl, navController, viewModel = viewModel)
                 }

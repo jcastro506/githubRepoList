@@ -6,6 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -30,7 +33,8 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "repos") {
                 composable("repos") {
-                    RepoListScreen(navController = navController, viewModel = viewModel)
+                    RepoListScreen(navController = navController, viewModel = viewModel,
+                        modifier = Modifier.semantics { contentDescription = "Repo List Screen" })
                 }
                 composable("repoDetailsScreen/{orgName}", arguments = listOf(
                     navArgument("orgName"){
@@ -40,7 +44,8 @@ class MainActivity : ComponentActivity() {
                     val orgName = remember {
                         it.arguments?.getString("orgName")
                     }
-                    RepoLinkDetailsScreen(orgName = orgName, navController = navController, viewModel = linksViewModel)
+                    RepoLinkDetailsScreen(orgName = orgName, navController = navController, viewModel = linksViewModel,
+                        modifier = Modifier.semantics { contentDescription = "Link Details Screen" })
                 }
                 composable("webViewScreen/{repoUrl}", arguments = listOf(
                     navArgument("repoUrl") {

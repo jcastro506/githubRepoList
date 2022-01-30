@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AndroidUriHandler
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -33,7 +35,8 @@ import coil.compose.rememberImagePainter
 fun RepoLinkDetailsScreen(
     orgName: String?,
     navController: NavController,
-    viewModel: RepoLinksViewModel
+    viewModel: RepoLinksViewModel,
+    modifier: Modifier
 
 ) {
     viewModel.getRepoList(orgName)
@@ -42,7 +45,7 @@ fun RepoLinkDetailsScreen(
             Text("Top 3 Repos", modifier = Modifier
                 .size(16.dp)
                 .padding(16.dp), textAlign = TextAlign.Center)
-            LazyColumn() {
+            LazyColumn(modifier = Modifier.semantics { contentDescription = "Details Screen Card" }) {
                 items(repos) { repo ->
                     RepoCard(
                         repoName = repo.name, repoImage = repo.owner.avatarUrl,

@@ -12,22 +12,21 @@ import javax.inject.Inject
 import kotlin.math.log
 
 
-@ActivityScoped
+
 class OrganizationRepository @Inject constructor(
     private val api: RepoApi
-) {
+) : OrgRepositoryInterface {
 
-    suspend fun getAllOrgs() : OrganizationsResponse {
+    override suspend fun getAllOrgs() : OrganizationsResponse {
         return api.getAllOrgs()
     }
 
-    suspend fun getOrgRepos(orgName : String?) : RepositoriesResponse {
-        return api.getOrgRepos(orgName = orgName)
+    override suspend fun getOrgsRepos(orgName: String?): RepositoriesResponse {
+        return api.getOrgRepos(orgName)
     }
 
-    suspend fun getReposBySearch(loginName : String?) : List<Repository> {
-        return api.getReposBySearch(loginName = loginName)
-            .sortedByDescending{ it.stargazersCount }.slice(0..2)
+    override suspend fun getReposBySearch(loginName: String?): List<Repository> {
+        return api.getReposBySearch(loginName)
     }
 
 }

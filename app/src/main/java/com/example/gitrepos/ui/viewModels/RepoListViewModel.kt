@@ -10,6 +10,7 @@ import com.example.gitrepos.models.Organization
 import com.example.gitrepos.models.OrganizationsResponse
 import com.example.gitrepos.models.RepositoriesResponse
 import com.example.gitrepos.models.Repository
+import com.example.gitrepos.repository.OrgRepositoryInterface
 import com.example.gitrepos.repository.OrganizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +18,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-@HiltViewModel
+
 class RepoListViewModel @Inject constructor(
-   var repository: OrganizationRepository
+   var repository: OrgRepositoryInterface
 ) : ViewModel(){
 
     val allOrgs : MutableState<List<Organization>> = mutableStateOf<List<Organization>>(emptyList<Organization>())
