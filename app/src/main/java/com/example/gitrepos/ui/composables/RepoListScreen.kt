@@ -47,6 +47,7 @@ fun RepoListScreen(
         Column() {
             SearchBar(modifier = Modifier
                 .fillMaxWidth()
+                .semantics { contentDescription = "Search Bar" }
                 .padding(16.dp)) {
                 viewModel.searchOrgList(it)
             }

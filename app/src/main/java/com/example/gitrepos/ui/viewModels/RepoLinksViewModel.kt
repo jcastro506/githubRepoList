@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gitrepos.models.RepositoriesResponse
 import com.example.gitrepos.models.Repository
+import com.example.gitrepos.repository.OrgRepositoryInterface
 import com.example.gitrepos.repository.OrganizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepoLinksViewModel @Inject constructor(
-    private val repository: OrganizationRepository
+    private val repository: OrgRepositoryInterface
 ) : ViewModel() {
 
     var repoList : MutableState<List<Repository>> = mutableStateOf<List<Repository>>(emptyList())

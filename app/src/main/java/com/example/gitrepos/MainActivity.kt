@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                         it.arguments?.getString("orgName")
                     }
                     RepoLinkDetailsScreen(orgName = orgName, navController = navController, viewModel = linksViewModel,
-                        modifier = Modifier.semantics { contentDescription = "Link Details Screen" })
+                        modifier = Modifier.semantics { testTag = "Link Details Screen" })
                 }
                 composable("webViewScreen/{repoUrl}", arguments = listOf(
                     navArgument("repoUrl") {

@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Text
+import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -45,11 +47,12 @@ fun RepoLinkDetailsScreen(
             Text("Top 3 Repos", modifier = Modifier
                 .size(16.dp)
                 .padding(16.dp), textAlign = TextAlign.Center)
-            LazyColumn(modifier = Modifier.semantics { contentDescription = "Details Screen Card" }) {
+            LazyColumn(modifier = Modifier) {
                 items(repos) { repo ->
                     RepoCard(
                         repoName = repo.name, repoImage = repo.owner.avatarUrl,
-                        repoUrl = repo.htmlUrl, navController = navController){
+                        repoUrl = repo.htmlUrl, navController = navController,
+                        modifier = Modifier.semantics { contentDescription = "Details Screen Card"}){
 
                     }
                 }
@@ -60,7 +63,7 @@ fun RepoLinkDetailsScreen(
 
 @Composable
 fun RepoCard(
-    repoName: String, repoImage: String,
+    repoName: String, repoImage: String, modifier: Modifier,
     repoUrl: String, navController: NavController, onClickAction: () -> Unit
 ) {
     val context = LocalContext.current

@@ -45,7 +45,8 @@ class NavigationTests {
             RepoListScreen(navController = navController, viewModel = RepoListViewModel(FakeOrgRepository()), modifier = Modifier)
         }
         composeTestRule.onAllNodesWithContentDescription("List Screen Card").get(0).performClick()
-        composeTestRule.onAllNodesWithContentDescription("Details Screen Card").fetchSemanticsNodes(true)
+        composeTestRule.onAllNodesWithContentDescription("Details Screen Card").assertAll(
+            hasClickAction())
 
         Espresso.pressBack()
 
